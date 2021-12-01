@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Form;
 use App\Http\Requests\StoreFormRequest;
 use App\Http\Requests\UpdateFormRequest;
+use App\Models\FormField;
 
 class FormController extends Controller
 {
@@ -15,7 +16,8 @@ class FormController extends Controller
      */
     public function index()
     {
-        //
+        $forms = Form::select('id', 'name')->paginate();
+        return view('form.index', compact('forms'));
     }
 
     /**
@@ -25,7 +27,8 @@ class FormController extends Controller
      */
     public function create()
     {
-        //
+        $form_fields = FormField::select('id', 'label')->get();
+        return view('form.create', compact('form_fields'));
     }
 
     /**
@@ -36,7 +39,18 @@ class FormController extends Controller
      */
     public function store(StoreFormRequest $request)
     {
-        //
+        $form = Form::create([
+            'name' => $request->name,
+        ]);
+
+        $attributes = [];
+        foreach ($request->form_field as $key => $form_field) {
+            $attributes[$key]['form_field_id'] = $form_field;
+        }
+
+        $form->attributes()->createMany($attributes);
+
+        return redirect('/form')->with('status', 'Form created');
     }
 
     /**
@@ -58,7 +72,9 @@ class FormController extends Controller
      */
     public function edit(Form $form)
     {
-        //
+        $form->load('attributes:id,form_id,form_field_id')->first();
+        $form_fields = FormField::select('id', 'label')->get();
+        return view('form.edit', compact('form_fields', 'form'));
     }
 
     /**
@@ -70,7 +86,19 @@ class FormController extends Controller
      */
     public function update(UpdateFormRequest $request, Form $form)
     {
-        //
+        $form->name = $request->name;
+        $form->save();
+
+        $form->attributes()->forceDelete();
+
+        $attributes = [];
+        foreach ($request->form_field as $key => $form_field) {
+            $attributes[$key]['form_field_id'] = $form_field;
+        }
+
+        $form->attributes()->createMany($attributes);
+
+        return redirect('/form')->with('status', 'Form updated');
     }
 
     /**
@@ -81,6 +109,8 @@ class FormController extends Controller
      */
     public function destroy(Form $form)
     {
-        //
+        $form->delete();
+
+        return redirect('/form')->with('status', 'Form deleted');
     }
 }

@@ -6,20 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Form extends Model
+class FormAttribute extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name',
+        'form_id',
+        'form_field_id',
     ];
 
-    protected $casts = [
-        'name' => 'string',
-    ];
-
-    public function attributes()
+    public function form()
     {
-        return $this->hasMany(FormAttribute::class);
+        return $this->belongsTo(Form::class);
     }
 }
