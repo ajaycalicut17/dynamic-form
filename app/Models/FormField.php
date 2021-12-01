@@ -18,4 +18,9 @@ class FormField extends Model
     protected $casts = [
         'label' => 'string',
     ];
+
+    public function options()
+    {
+        return $this->hasMany(FormFieldOption::class);
+    }
 }

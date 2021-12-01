@@ -39,6 +39,14 @@
                       @error('field_type')
                       <div class="text-red-50">{{ $message }}</div>
                       @enderror
+                      <div id="div_for_select_option">
+                        @if (count($formField->options))
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white rounded-full mt-4" id="div_for_select_option_button"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg></button>
+                        @endif
+                        @foreach ($formField->options as $option)
+                        <input type="text" name="option[]" id="option" value={{ $option->option }} autocomplete="option" class="mt-4 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        @endforeach
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -54,4 +62,20 @@
     </div>
   </div>
   </div>
+
+  <script>
+    $('#field_type').change(function (e) { 
+      e.preventDefault();
+      if (this.value == 3) {
+        $('#div_for_select_option').html("<button class='bg-blue-500 hover:bg-blue-700 text-white rounded-full mt-4' id='div_for_select_option_button'><svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 6v6m0 0v6m0-6h6m-6 0H6'></path></svg></button><input type='text' name='option[]' id='option' autocomplete='option' class='mt-4 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'>");
+      } else {
+        $('#div_for_select_option').html("");
+      }
+    });
+
+    $('#div_for_select_option, #div_for_select_option_button').click(function (e) { 
+      e.preventDefault();
+      $('#div_for_select_option').append("<input type='text' name='option[]' id='option' autocomplete='option' class='mt-4 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'>");
+    });
+  </script>
 </x-app-layout>

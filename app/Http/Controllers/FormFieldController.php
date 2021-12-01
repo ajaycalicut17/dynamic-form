@@ -39,10 +39,21 @@ class FormFieldController extends Controller
      */
     public function store(StoreFormFieldRequest $request)
     {
-        FormField::create([
+        $form_field = FormField::create([
             'label' => $request->label,
             'field_id' => $request->field_type
         ]);
+
+        if ($request->has('option')) {
+            $form_field_options = [];
+            foreach ($request->option as $key => $option) {
+                if ($option) {
+                    $form_field_options[$key]['option'] = $option;
+                }
+            }
+            
+            $form_field->options()->createMany($form_field_options);
+        }
 
         return redirect('/form_field')->with('status', 'Form field created');
     }
@@ -66,6 +77,7 @@ class FormFieldController extends Controller
      */
     public function edit(FormField $formField)
     {
+        $formField->load('options:id,form_field_id,option')->first();
         $fields = Field::select('id', 'name')->get();
         return view('form_field.edit', compact('fields', 'formField'));
     }
@@ -82,6 +94,19 @@ class FormFieldController extends Controller
         $formField->label = $request->label;
         $formField->field_id = $request->field_type;
         $formField->save();
+
+        $formField->options()->forceDelete();
+
+        if ($request->has('option')) {
+            $form_field_options = [];
+            foreach ($request->option as $key => $option) {
+                if ($option) {
+                    $form_field_options[$key]['option'] = $option;
+                }
+            }
+            
+            $formField->options()->createMany($form_field_options);
+        }
 
         return redirect('/form_field')->with('status', 'Form field updated');
     }

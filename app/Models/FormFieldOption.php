@@ -18,4 +18,9 @@ class FormFieldOption extends Model
     protected $casts = [
         'option' => 'string',
     ];
+
+    public function form_field()
+    {
+        return $this->belongsTo(FormField::class);
+    }
 }
