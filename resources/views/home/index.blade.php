@@ -43,10 +43,14 @@
                   </td>
                 </tr>
                 @endforeach
+                
                 <!-- More people... -->
               </tbody>
             </table>
           </div>
+          @if (!$forms->total())
+          Form is empty
+          @endif
         </div>
       </div>
     </div>
