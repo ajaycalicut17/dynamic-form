@@ -34,6 +34,10 @@ php artisan serve
 ```
 
 ```bash
+Home Page URL : http://127.0.0.1:8000
+```
+
+```bash
 Login URL : http://127.0.0.1:8000/login
 ```
 
