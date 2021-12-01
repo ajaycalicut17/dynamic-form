@@ -22,4 +22,10 @@ class Form extends Model
     {
         return $this->hasMany(FormAttribute::class);
     }
+
+    public function attributesFormField()
+    {
+        return $this->hasManyThrough(FormField::class, FormAttribute::class, 'form_id', 'id', 'id', 'form_field_id'
+        );
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\FormFieldController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/form_detail/{form}', [HomeController::class, 'form_detail'])->name('form_detail');
 
 require __DIR__.'/auth.php';
 

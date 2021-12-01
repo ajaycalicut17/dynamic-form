@@ -19,4 +19,9 @@ class FormAttribute extends Model
     {
         return $this->belongsTo(Form::class);
     }
+
+    public function formField()
+    {
+        $this->hasOne(FormField::class);
+    }
 }
