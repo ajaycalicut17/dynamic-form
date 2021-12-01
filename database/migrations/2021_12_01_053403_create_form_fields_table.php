@@ -15,7 +15,6 @@ class CreateFormFieldsTable extends Migration
     {
         Schema::create('form_fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_id')->constrained();
             $table->foreignId('field_id')->constrained();
             $table->string('label');
             $table->timestamps();

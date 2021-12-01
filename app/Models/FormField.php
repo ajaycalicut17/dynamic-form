@@ -11,7 +11,6 @@ class FormField extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'form_id',
         'field_id',
         'label',
     ];

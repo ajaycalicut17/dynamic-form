@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\FormFieldController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::view('/', 'welcome');
 
 require __DIR__.'/auth.php';
+
+Route::middleware(['auth'])->group(function () {
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
+    Route::resource('form', FormController::class)->except('show');
+    Route::resource('form_field', FormFieldController::class)->except('show');
+});
