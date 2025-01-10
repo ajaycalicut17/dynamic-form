@@ -30,8 +30,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-composer-
 
-    - name: Install dependencies
-      run: composer install --no-progress --prefer-dist
+    - name: Install Pint
+      run: composer require --dev laravel/pint
 
     - name: Run Pint
       run: vendor/bin/pint --test
@@ -58,8 +58,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-composer-
 
-    - name: Install dependencies
-      run: composer install --no-progress --prefer-dist
+    - name: Install larastan
+      run: composer require --dev larastan/larastan
 
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse app bootstrap database
