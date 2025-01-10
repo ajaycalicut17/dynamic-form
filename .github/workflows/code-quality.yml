@@ -11,10 +11,6 @@ jobs:
   pint:
     name: Pint
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
 
     steps:
     - name: Checkout code
@@ -30,3 +26,22 @@ jobs:
  
     - name: Run Pint
       run: pint --test
+
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup PHP
+      uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+      with:
+        php-version: '8.0'
+
+    - name: Install larastan
+      run: composer require --dev larastan/larastan
+
+    - name: Run Larastan
+      run: vendor/bin/phpstan analyse app bootstrap database
