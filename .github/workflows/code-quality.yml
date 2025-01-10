@@ -8,8 +8,8 @@ permissions:
   contents: read
 
 jobs:
-  pint:
-    name: Laravel Pint
+  setup:
+    name: Setup Environment
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,6 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.0'
-        extensions: mbstring # Required by Laravel
 
     - name: Cache Composer dependencies
       uses: actions/cache@v3
@@ -30,6 +29,15 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-composer-
 
+    - name: Install dependencies
+      run: composer install --no-progress --prefer-dist
+
+  pint:
+    name: Laravel Pint
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
     - name: Install Pint
       run: composer require --dev laravel/pint
 
@@ -39,26 +47,9 @@ jobs:
   phpstan:
     name: PHPStan Analysis
     runs-on: ubuntu-latest
-    needs: pint
+    needs: setup
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.0'
-        extensions: mbstring # Required by Laravel
-
-    - name: Cache Composer dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.composer/cache
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-composer-
-
     - name: Install larastan
       run: composer require --dev larastan/larastan
 
