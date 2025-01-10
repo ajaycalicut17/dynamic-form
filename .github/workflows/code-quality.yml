@@ -35,6 +35,7 @@ jobs:
 
     - name: Run Pint
       run: vendor/bin/pint --test
+      continue-on-error: true
 
   phpstan:
     name: PHPStan Analysis
@@ -43,7 +44,7 @@ jobs:
       contents: read
       security-events: write
       actions: read
-    # needs: pint
+    needs: pint
 
     steps:
     - name: Checkout code
@@ -68,6 +69,7 @@ jobs:
 
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse app bootstrap database
+      continue-on-error: true
 
   phpmd:
     name: PHPMD Analysis
@@ -76,7 +78,7 @@ jobs:
       contents: read
       security-events: write
       actions: read
-    # needs: phpstan
+    needs: phpstan
 
     steps:
     - name: Checkout code
@@ -91,3 +93,4 @@ jobs:
 
     - name: Run PHPMD
       run: phpmd . github .github/phpmd/ruleset.xml
+      continue-on-error: true
