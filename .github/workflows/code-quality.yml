@@ -25,6 +25,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ env.PHP_VERSION }}
+        coverage: none
 
     - name: Cache Composer dependencies
       uses: actions/cache@v3
@@ -52,6 +53,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ env.PHP_VERSION }}
+        coverage: none
 
     - name: Cache Composer dependencies
       uses: actions/cache@v3
@@ -97,6 +99,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ env.PHP_VERSION }}
+        coverage: none
 
     - name: Cache Composer dependencies
       uses: actions/cache@v3
