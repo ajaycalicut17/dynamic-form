@@ -30,10 +30,10 @@ jobs:
           ${{ runner.os }}-composer-
 
     - name: Install Pint
-      run: composer require --dev laravel/pint
+      run: composer global require laravel/pint
 
     - name: Run Pint
-      run: vendor/bin/pint --test
+      run: pint --test
 
   phpstan:
     name: PHPStan
