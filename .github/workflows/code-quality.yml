@@ -9,6 +9,9 @@ permissions:
   security-events: write
   actions: read
 
+env:
+  PHP_VERSION: '8.2'
+
 jobs:
   pint:
     name: Laravel Pint
@@ -21,7 +24,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: ${{ env.PHP_VERSION }}
 
     - name: Cache Composer dependencies
       uses: actions/cache@v3
@@ -48,7 +51,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: ${{ env.PHP_VERSION }}
 
     - name: Cache Composer dependencies
       uses: actions/cache@v3
@@ -75,7 +78,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: ${{ env.PHP_VERSION }}
         coverage: none
         tools: phpmd
 
@@ -93,7 +96,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: ${{ env.PHP_VERSION }}
 
     - name: Cache Composer dependencies
       uses: actions/cache@v3
