@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   pint:
-    name: Pint
+    name: Laravel Pint
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +38,7 @@ jobs:
       run: pint --test
 
   phpstan:
-    name: PHPStan
+    name: PHPStan Analysis
     runs-on: ubuntu-latest
 
     steps:
@@ -65,7 +65,7 @@ jobs:
       run: vendor/bin/phpstan analyse app bootstrap database
 
   phpmd:
-    name: PHPMD
+    name: PHPMD Analysis
     runs-on: ubuntu-latest
 
     steps:
