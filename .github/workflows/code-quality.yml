@@ -59,7 +59,7 @@ jobs:
           ${{ runner.os }}-composer-
 
     - name: Install larastan
-      run: composer require --dev larastan/larastan
+      run: composer require --dev "larastan/larastan:^3.0"
 
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse app bootstrap database
@@ -83,7 +83,7 @@ jobs:
       run: phpmd . github .github/phpmd/ruleset.xml
 
   test:
-    name: Test
+    name: Architecture Test
     runs-on: ubuntu-latest
 
     steps:
