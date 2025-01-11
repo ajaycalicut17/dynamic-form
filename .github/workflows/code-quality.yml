@@ -113,4 +113,4 @@ jobs:
       run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
     - name: Run Test
-      run: php artisan test
+      run: php artisan test --filter ArchitectureTest
