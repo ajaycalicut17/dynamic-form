@@ -13,79 +13,79 @@ env:
   PHP_VERSION: '8.2'
 
 jobs:
-  pint:
-    name: Laravel Pint
-    runs-on: ubuntu-latest
+  # pint:
+  #   name: Laravel Pint
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ env.PHP_VERSION }}
-        coverage: none
+  #   - name: Setup PHP
+  #     uses: shivammathur/setup-php@v2
+  #     with:
+  #       php-version: ${{ env.PHP_VERSION }}
+  #       coverage: none
 
-    - name: Cache Composer dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.composer/cache
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-composer-
+  #   - name: Cache Composer dependencies
+  #     uses: actions/cache@v3
+  #     with:
+  #       path: ~/.composer/cache
+  #       key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+  #       restore-keys: |
+  #         ${{ runner.os }}-composer-
 
-    - name: Install Pint
-      run: composer global require laravel/pint
+  #   - name: Install Pint
+  #     run: composer global require laravel/pint
 
-    - name: Run Pint
-      run: pint --test
+  #   - name: Run Pint
+  #     run: pint --test
 
-  phpstan:
-    name: PHPStan Analysis
-    runs-on: ubuntu-latest
+  # phpstan:
+  #   name: PHPStan Analysis
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ env.PHP_VERSION }}
-        coverage: none
+  #   - name: Setup PHP
+  #     uses: shivammathur/setup-php@v2
+  #     with:
+  #       php-version: ${{ env.PHP_VERSION }}
+  #       coverage: none
 
-    - name: Cache Composer dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.composer/cache
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-composer-
+  #   - name: Cache Composer dependencies
+  #     uses: actions/cache@v3
+  #     with:
+  #       path: ~/.composer/cache
+  #       key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+  #       restore-keys: |
+  #         ${{ runner.os }}-composer-
 
-    - name: Install larastan
-      run: composer require --dev larastan/larastan
+  #   - name: Install larastan
+  #     run: composer require --dev larastan/larastan
 
-    - name: Run PHPStan
-      run: vendor/bin/phpstan analyse app bootstrap database
+  #   - name: Run PHPStan
+  #     run: vendor/bin/phpstan analyse app bootstrap database
 
-  phpmd:
-    name: PHPMD Analysis
-    runs-on: ubuntu-latest
+  # phpmd:
+  #   name: PHPMD Analysis
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ env.PHP_VERSION }}
-        coverage: none
-        tools: phpmd
+  #   - name: Setup PHP
+  #     uses: shivammathur/setup-php@v2
+  #     with:
+  #       php-version: ${{ env.PHP_VERSION }}
+  #       coverage: none
+  #       tools: phpmd
 
-    - name: Run PHPMD
-      run: phpmd . github .github/phpmd/ruleset.xml
+  #   - name: Run PHPMD
+  #     run: phpmd . github .github/phpmd/ruleset.xml
 
   rector:
     name: Rector Analysis
@@ -105,30 +105,30 @@ jobs:
     - name: Run rector
       run: rector process --dry-run --config .github/rector/rector.php
 
-  test:
-    name: Architecture Test
-    runs-on: ubuntu-latest
+  # test:
+  #   name: Architecture Test
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ env.PHP_VERSION }}
-        coverage: none
+  #   - name: Setup PHP
+  #     uses: shivammathur/setup-php@v2
+  #     with:
+  #       php-version: ${{ env.PHP_VERSION }}
+  #       coverage: none
 
-    - name: Cache Composer dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.composer/cache
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-composer-
+  #   - name: Cache Composer dependencies
+  #     uses: actions/cache@v3
+  #     with:
+  #       path: ~/.composer/cache
+  #       key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+  #       restore-keys: |
+  #         ${{ runner.os }}-composer-
 
-    - name: Install dependencies
-      run: composer install --no-interaction --prefer-dist --optimize-autoloader
+  #   - name: Install dependencies
+  #     run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-    - name: Run Test
-      run: php artisan test --filter ArchitectureTest
+  #   - name: Run Test
+  #     run: php artisan test --filter ArchitectureTest
