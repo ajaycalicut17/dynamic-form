@@ -103,7 +103,7 @@ jobs:
         tools: rector
 
     - name: Run rector
-      run: rector --dry-run --config .github/rector/rector.php
+      run: rector process --dry-run --config .github/rector/rector.php
 
   # test:
   #   name: Architecture Test
