@@ -103,7 +103,7 @@ jobs:
         tools: rector
 
     - name: Run rector
-      run: rector
+      run: rector .github/rector/rector.php
 
   test:
     name: Architecture Test
